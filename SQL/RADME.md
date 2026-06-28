@@ -52,7 +52,7 @@ Completed practice and notes.
 
 ## ⏭️ Next Topics
 
-* [ ] IS NULL
+* [X] IS NULL
 * [ ] IS NOT NULL
 * [ ] COUNT()
 * [ ] SUM()
