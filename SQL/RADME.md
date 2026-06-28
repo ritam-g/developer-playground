@@ -53,7 +53,7 @@ Completed practice and notes.
 ## ⏭️ Next Topics
 
 * [X] IS NULL
-* [ ] IS NOT NULL
+* [X] IS NOT NULL
 * [ ] COUNT()
 * [ ] SUM()
 * [ ] AVG()
