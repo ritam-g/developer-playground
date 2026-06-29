@@ -54,11 +54,11 @@ Completed practice and notes.
 
 * [X] IS NULL
 * [X] IS NOT NULL
-* [ ] COUNT()
-* [ ] SUM()
-* [ ] AVG()
-* [ ] MIN()
-* [ ] MAX()
+* [X] COUNT()
+* [X] SUM()
+* [X] AVG()
+* [X] MIN()
+* [X] MAX()
 * [ ] GROUP BY
 * [ ] HAVING
 
@@ -78,11 +78,11 @@ Completed practice and notes.
 
 ### SQL Functions
 
-* [ ] COUNT()
-* [ ] SUM()
-* [ ] AVG()
-* [ ] MIN()
-* [ ] MAX()
+* [X] COUNT()
+* [X] SUM()
+* [X] AVG()
+* [X] MIN()
+* [X] MAX()
 
 ---
 
