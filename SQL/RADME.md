@@ -59,8 +59,8 @@ Completed practice and notes.
 * [X] AVG()
 * [X] MIN()
 * [X] MAX()
-* [ ] GROUP BY
-* [ ] HAVING
+* [X] GROUP BY
+* [X] HAVING (by the time you will be ok with it ))
 
 ---
 
