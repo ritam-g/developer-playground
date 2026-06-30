@@ -68,11 +68,11 @@ Completed practice and notes.
 
 ### Constraints
 
-* [ ] NOT NULL
-* [ ] UNIQUE
-* [ ] DEFAULT
-* [ ] AUTO_INCREMENT
-* [ ] FOREIGN KEY
+* [X] NOT NULL
+* [X] UNIQUE
+* [X] DEFAULT
+* [X] AUTO_INCREMENT
+* [X] FOREIGN KEY
 
 ---
 
