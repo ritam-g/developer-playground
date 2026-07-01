@@ -88,8 +88,8 @@ Completed practice and notes.
 
 ### Joins
 
-* [ ] INNER JOIN
-* [ ] LEFT JOIN
+* [X] INNER JOIN
+* [X] LEFT JOIN
 * [ ] RIGHT JOIN
 * [ ] FULL JOIN
 * [ ] SELF JOIN
