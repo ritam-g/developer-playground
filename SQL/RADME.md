@@ -90,9 +90,9 @@ Completed practice and notes.
 
 * [X] INNER JOIN
 * [X] LEFT JOIN
-* [ ] RIGHT JOIN
-* [ ] FULL JOIN
-* [ ] SELF JOIN
+* [X] RIGHT JOIN
+* [X] FULL JOIN
+* [X] SELF JOIN
 
 ---
 
