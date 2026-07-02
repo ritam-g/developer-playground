@@ -98,7 +98,7 @@ Completed practice and notes.
 
 ### Advanced SQL
 
-* [ ] Subqueries
+* [X] Subqueries
 * [ ] Views
 * [ ] Indexes
 * [ ] Transactions
