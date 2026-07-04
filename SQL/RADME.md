@@ -1,4 +1,3 @@
-
 # 🗄️ SQL Learning Roadmap
 
 > My personal SQL knowledge base for Backend Development (MERN + MySQL/PostgreSQL)
@@ -133,11 +132,11 @@ By the end of this roadmap, I should be able to:
 * [X] Introduction
 * [X] Why Window Functions?
 * [X] OVER()
-* [ ] PARTITION BY
-* [ ] ORDER BY inside OVER()
-* [ ] ROW_NUMBER()
-* [ ] RANK()
-* [ ] DENSE_RANK()
+* [X] PARTITION BY
+* [X] ORDER BY inside OVER()
+* [X] ROW_NUMBER()
+* [X] RANK()
+* [X] DENSE_RANK()
 
 ### Learn Lightly
 
