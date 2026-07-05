@@ -17,6 +17,7 @@ import morgan from "morgan";
 import userRoutes from "./routes/user.routes.js";
 import categoryRoutes from "./routes/category.routes.js";
 import transactionRoutes from "./routes/transaction.routes.js";
+import reportRoutes from "./routes/report.routes.js";
 const app = express();
 
 /**
@@ -47,5 +48,6 @@ app.get("/", (req, res) => {
 app.use("/api/users", userRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/transactions", transactionRoutes);
+app.use("/api/reports", reportRoutes);
 
 export default app;
