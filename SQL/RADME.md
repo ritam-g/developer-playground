@@ -174,12 +174,12 @@ By the end of this roadmap, I should be able to:
 
 ## Module 12: Views
 
-* [ ] What is a View?
-* [ ] CREATE VIEW
-* [ ] Using Views
-* [ ] Updating Views (Basic)
-* [ ] Advantages
-* [ ] Real Backend Use Cases
+* [X] What is a View?
+* [X] CREATE VIEW
+* [X] Using Views
+* [X] Updating Views (Basic)
+* [X] Advantages
+* [X] Real Backend Use Cases
 
 ---
 
