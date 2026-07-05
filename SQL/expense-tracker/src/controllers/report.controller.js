@@ -30,6 +30,24 @@ class ReportController {
             return ApiResponse.error(res, 400, error.message);
         }
     }
+
+    /**
+     * Get Category-wise Expense breakdown.
+     *
+     * @param {import("express").Request} req - Express request object.
+     * @param {import("express").Response} res - Express response object.
+     */
+    static async getCategoryExpense(req, res) {
+        try {
+            const { userId } = req.query;
+
+            const categoryExpenses = await ReportService.getCategoryExpense(userId);
+
+            return ApiResponse.success(res, 200, "Category expenses fetched successfully.", categoryExpenses);
+        } catch (error) {
+            return ApiResponse.error(res, 400, error.message);
+        }
+    }
 }
 
 export default ReportController;

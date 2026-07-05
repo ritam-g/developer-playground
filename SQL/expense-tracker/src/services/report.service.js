@@ -5,7 +5,8 @@
  * - Handle complex reporting and aggregation logic.
  * - Call Sequelize aggregate functions (sum, count, etc.).
  */
-import { Transaction } from "../models/index.js";
+import { Transaction, Category } from "../models/index.js";
+import { Sequelize } from "sequelize";
 
 class ReportService {
     /**
@@ -42,6 +43,45 @@ class ReportService {
             totalExpense,
             balance
         };
+    }
+    /**
+     * Get Category-wise Expense breakdown.
+     *
+     * SQL equivalent:
+     * SELECT c.name AS categoryName, SUM(t.amount) AS totalAmount
+     * FROM transactions t
+     * JOIN categories c ON t.categoryId = c.id
+     * WHERE t.userId = ? AND t.type = 'expense'
+     * GROUP BY t.categoryId;
+     *
+     * @param {number|string} userId - ID of the user.
+     * @returns {Promise<Array>} Array of objects with categoryName and totalAmount.
+     */
+    static async getCategoryExpense(userId) {
+        if (!userId) {
+            throw new Error("userId is required to fetch reports.");
+        }
+
+        const categoryExpenses = await Transaction.findAll({
+            where: { userId, type: "expense" },
+            attributes: [
+                "categoryId",
+                [Sequelize.fn("SUM", Sequelize.col("amount")), "totalAmount"]
+            ],
+            include: [
+                {
+                    model: Category,
+                    attributes: ["name"]
+                }
+            ],
+            group: ["categoryId", "Category.id"] // MySQL sometimes requires grouped joined columns
+        });
+
+        // Format the output for the frontend
+        return categoryExpenses.map(item => ({
+            categoryName: item.Category.name,
+            totalAmount: item.getDataValue("totalAmount")
+        }));
     }
 }
 

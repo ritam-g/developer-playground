@@ -9,4 +9,10 @@ const router = express.Router();
  */
 router.get("/summary", ReportController.getDashboardSummary);
 
+/**
+ * Route: GET /api/reports/category-expense
+ * Get category-wise expense breakdown
+ */
+router.get("/category-expense", ReportController.getCategoryExpense);
+
 export default router;
