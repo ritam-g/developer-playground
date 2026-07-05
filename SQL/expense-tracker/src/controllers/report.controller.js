@@ -2,9 +2,9 @@
  * Report controller.
  *
  * Responsibilities:
- * - Extract query parameters.
- * - Call Report Service.
- * - Format JSON responses.
+ * - Extract query parameters from HTTP requests.
+ * - Call Report Service methods.
+ * - Format and return JSON responses using ApiResponse.
  */
 import ReportService from "../services/report.service.js";
 import ApiResponse from "../utils/apiResponse.js";
@@ -13,18 +13,17 @@ class ReportController {
     /**
      * Get Dashboard Summary (Total Income, Total Expense, Balance).
      *
-     * @param {import("express").Request} req - Express request object.
-     * @param {import("express").Response} res - Express response object.
+     * GET /api/reports/summary?userId=1
+     *
+     * @param {import("express").Request} req
+     * @param {import("express").Response} res
      */
     static async getDashboardSummary(req, res) {
         try {
-            // Note: Since we don't have Authentication middleware yet, 
-            // we temporarily accept userId from the query string (e.g. ?userId=1).
-            // In a production app, we would get this from req.user.id securely.
+            // Note: userId comes from query for now.
+            // After Phase 8 (Auth), this will become req.user.id
             const { userId } = req.query;
-
             const summary = await ReportService.getDashboardSummary(userId);
-
             return ApiResponse.success(res, 200, "Dashboard summary fetched successfully.", summary);
         } catch (error) {
             return ApiResponse.error(res, 400, error.message);
@@ -34,16 +33,106 @@ class ReportController {
     /**
      * Get Category-wise Expense breakdown.
      *
-     * @param {import("express").Request} req - Express request object.
-     * @param {import("express").Response} res - Express response object.
+     * GET /api/reports/category-expense?userId=1
+     *
+     * @param {import("express").Request} req
+     * @param {import("express").Response} res
      */
     static async getCategoryExpense(req, res) {
         try {
             const { userId } = req.query;
+            const data = await ReportService.getCategoryExpense(userId);
+            return ApiResponse.success(res, 200, "Category expenses fetched successfully.", data);
+        } catch (error) {
+            return ApiResponse.error(res, 400, error.message);
+        }
+    }
 
-            const categoryExpenses = await ReportService.getCategoryExpense(userId);
+    /**
+     * Get Monthly Income & Expense trends.
+     *
+     * GET /api/reports/monthly-trends?userId=1&year=2025
+     *
+     * @param {import("express").Request} req
+     * @param {import("express").Response} res
+     */
+    static async getMonthlyTrends(req, res) {
+        try {
+            const { userId, year } = req.query;
+            const data = await ReportService.getMonthlyTrends(userId, year);
+            return ApiResponse.success(res, 200, "Monthly trends fetched successfully.", data);
+        } catch (error) {
+            return ApiResponse.error(res, 400, error.message);
+        }
+    }
 
-            return ApiResponse.success(res, 200, "Category expenses fetched successfully.", categoryExpenses);
+    /**
+     * Get Recent Transactions.
+     *
+     * GET /api/reports/recent?userId=1&limit=5
+     *
+     * @param {import("express").Request} req
+     * @param {import("express").Response} res
+     */
+    static async getRecentTransactions(req, res) {
+        try {
+            const { userId, limit } = req.query;
+            const data = await ReportService.getRecentTransactions(userId, limit);
+            return ApiResponse.success(res, 200, "Recent transactions fetched successfully.", data);
+        } catch (error) {
+            return ApiResponse.error(res, 400, error.message);
+        }
+    }
+
+    /**
+     * Get Highest Expense transaction.
+     *
+     * GET /api/reports/highest-expense?userId=1
+     *
+     * @param {import("express").Request} req
+     * @param {import("express").Response} res
+     */
+    static async getHighestExpense(req, res) {
+        try {
+            const { userId } = req.query;
+            const data = await ReportService.getHighestExpense(userId);
+            return ApiResponse.success(res, 200, "Highest expense fetched successfully.", data);
+        } catch (error) {
+            return ApiResponse.error(res, 400, error.message);
+        }
+    }
+
+    /**
+     * Get Lowest Expense transaction.
+     *
+     * GET /api/reports/lowest-expense?userId=1
+     *
+     * @param {import("express").Request} req
+     * @param {import("express").Response} res
+     */
+    static async getLowestExpense(req, res) {
+        try {
+            const { userId } = req.query;
+            const data = await ReportService.getLowestExpense(userId);
+            return ApiResponse.success(res, 200, "Lowest expense fetched successfully.", data);
+        } catch (error) {
+            return ApiResponse.error(res, 400, error.message);
+        }
+    }
+
+    /**
+     * Get Top Spending Categories.
+     *
+     * GET /api/reports/top-categories?userId=1&limit=5
+     *
+     * @param {import("express").Request} req
+     * @param {import("express").Response} res
+     */
+    static async getTopSpendingCategories(req, res) {
+        try {
+            const { userId, limit } = req.query;
+            const data = await ReportService.getTopSpendingCategories(userId, limit);
+            return ApiResponse.success(res, 200, "Top spending categories fetched successfully.", data);
         } catch (error) {
             return ApiResponse.error(res, 400, error.message);
         }
