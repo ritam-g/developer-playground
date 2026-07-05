@@ -17,8 +17,76 @@ class TransactionController {
             const transaction = await TransactionService.createTransaction(req.body);
             return ApiResponse.success(res, 201, "Transaction created successfully.", transaction);
         } catch (error) {
-            // Using 400 for validation errors or 500 for server errors
             const statusCode = error.message.includes("not found") ? 404 : 400;
+            return ApiResponse.error(res, statusCode, error.message);
+        }
+    }
+
+    /**
+     * Get all transactions.
+     *
+     * @param {import("express").Request} req - Express request object.
+     * @param {import("express").Response} res - Express response object.
+     * @returns {Promise<object>} JSON response.
+     */
+    static async getAllTransactions(req, res) {
+        try {
+            const data = await TransactionService.getAllTransactions(req.query);
+            return ApiResponse.success(res, 200, "Transactions fetched successfully.", data);
+        } catch (error) {
+            return ApiResponse.error(res, 500, error.message);
+        }
+    }
+
+    /**
+     * Get transaction by ID.
+     *
+     * @param {import("express").Request} req - Express request object.
+     * @param {import("express").Response} res - Express response object.
+     * @returns {Promise<object>} JSON response.
+     */
+    static async getTransactionById(req, res) {
+        try {
+            const transaction = await TransactionService.getTransactionById(req.params.id);
+            if (!transaction) {
+                return ApiResponse.error(res, 404, "Transaction not found.");
+            }
+            return ApiResponse.success(res, 200, "Transaction fetched successfully.", transaction);
+        } catch (error) {
+            return ApiResponse.error(res, 500, error.message);
+        }
+    }
+
+    /**
+     * Update transaction by ID.
+     *
+     * @param {import("express").Request} req - Express request object.
+     * @param {import("express").Response} res - Express response object.
+     * @returns {Promise<object>} JSON response.
+     */
+    static async updateTransaction(req, res) {
+        try {
+            const transaction = await TransactionService.updateTransaction(req.params.id, req.body);
+            return ApiResponse.success(res, 200, "Transaction updated successfully.", transaction);
+        } catch (error) {
+            const statusCode = error.message.includes("not found") ? 404 : 400;
+            return ApiResponse.error(res, statusCode, error.message);
+        }
+    }
+
+    /**
+     * Delete transaction by ID.
+     *
+     * @param {import("express").Request} req - Express request object.
+     * @param {import("express").Response} res - Express response object.
+     * @returns {Promise<object>} JSON response.
+     */
+    static async deleteTransaction(req, res) {
+        try {
+            await TransactionService.deleteTransaction(req.params.id);
+            return ApiResponse.success(res, 200, "Transaction deleted successfully.");
+        } catch (error) {
+            const statusCode = error.message.includes("not found") ? 404 : 500;
             return ApiResponse.error(res, statusCode, error.message);
         }
     }

@@ -21,14 +21,24 @@ const Transaction = sequelize.define(
             allowNull: false,
         },
 
-        description: {
+        title: {
             type: DataTypes.STRING,
-            allowNull: true,
+            allowNull: false,
+        },
+
+        type: {
+            type: DataTypes.ENUM("income", "expense"),
+            allowNull: false,
         },
 
         transactionDate: {
             type: DataTypes.DATE,
             allowNull: false,
+        },
+
+        notes: {
+            type: DataTypes.TEXT,
+            allowNull: true,
         },
     },
     {
