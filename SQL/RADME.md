@@ -151,24 +151,24 @@ By the end of this roadmap, I should be able to:
 
 ## Module 10: Transactions ⭐⭐⭐⭐⭐
 
-* [ ] BEGIN
-* [ ] COMMIT
-* [ ] ROLLBACK
-* [ ] SAVEPOINT
-* [ ] ACID Properties
-* [ ] Real Backend Transaction Flow
+* [X] BEGIN
+* [X] COMMIT
+* [X] ROLLBACK
+* [X] SAVEPOINT
+* [X] ACID Properties
+* [X] Real Backend Transaction Flow
 
 ---
 
 ## Module 11: Indexes ⭐⭐⭐⭐⭐
 
-* [ ] What is an Index?
-* [ ] CREATE INDEX
-* [ ] Composite Index
-* [ ] EXPLAIN
-* [ ] EXPLAIN ANALYZE
-* [ ] When to Create an Index
-* [ ] When NOT to Create an Index
+* [X] What is an Index?
+* [X] CREATE INDEX
+* [X] Composite Index
+* [X] EXPLAIN
+* [X] EXPLAIN ANALYZE
+* [X] When to Create an Index
+* [X] When NOT to Create an Index
 
 ---
 
