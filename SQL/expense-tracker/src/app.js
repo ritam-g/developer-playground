@@ -15,6 +15,7 @@
 import express from "express";
 import morgan from "morgan";
 import userRoutes from "./routes/user.routes.js";
+import categoryRoutes from "./routes/category.routes.js";
 const app = express();
 
 /**
@@ -43,5 +44,6 @@ app.get("/", (req, res) => {
  * API Routes
  */
 app.use("/api/users", userRoutes);
+app.use("/api/categories", categoryRoutes);
 
 export default app;
