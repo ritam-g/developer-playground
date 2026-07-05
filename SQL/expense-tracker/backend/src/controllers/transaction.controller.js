@@ -14,7 +14,8 @@ class TransactionController {
      */
     static async createTransaction(req, res) {
         try {
-            const transaction = await TransactionService.createTransaction(req.body);
+            const payload = { ...req.body, userId: req.user.id };
+            const transaction = await TransactionService.createTransaction(payload);
             return ApiResponse.success(res, 201, "Transaction created successfully.", transaction);
         } catch (error) {
             const statusCode = error.message.includes("not found") ? 404 : 400;
@@ -31,7 +32,8 @@ class TransactionController {
      */
     static async getAllTransactions(req, res) {
         try {
-            const data = await TransactionService.getAllTransactions(req.query);
+            const queryParams = { ...req.query, userId: req.user.id };
+            const data = await TransactionService.getAllTransactions(queryParams);
             return ApiResponse.success(res, 200, "Transactions fetched successfully.", data);
         } catch (error) {
             return ApiResponse.error(res, 500, error.message);

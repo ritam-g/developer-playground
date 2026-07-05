@@ -20,9 +20,7 @@ class ReportController {
      */
     static async getDashboardSummary(req, res) {
         try {
-            // Note: userId comes from query for now.
-            // After Phase 8 (Auth), this will become req.user.id
-            const { userId } = req.query;
+            const userId = req.user.id;
             const summary = await ReportService.getDashboardSummary(userId);
             return ApiResponse.success(res, 200, "Dashboard summary fetched successfully.", summary);
         } catch (error) {
@@ -40,7 +38,7 @@ class ReportController {
      */
     static async getCategoryExpense(req, res) {
         try {
-            const { userId } = req.query;
+            const userId = req.user.id;
             const data = await ReportService.getCategoryExpense(userId);
             return ApiResponse.success(res, 200, "Category expenses fetched successfully.", data);
         } catch (error) {
@@ -58,7 +56,8 @@ class ReportController {
      */
     static async getMonthlyTrends(req, res) {
         try {
-            const { userId, year } = req.query;
+            const userId = req.user.id;
+            const { year } = req.query;
             const data = await ReportService.getMonthlyTrends(userId, year);
             return ApiResponse.success(res, 200, "Monthly trends fetched successfully.", data);
         } catch (error) {
@@ -76,7 +75,8 @@ class ReportController {
      */
     static async getRecentTransactions(req, res) {
         try {
-            const { userId, limit } = req.query;
+            const userId = req.user.id;
+            const { limit } = req.query;
             const data = await ReportService.getRecentTransactions(userId, limit);
             return ApiResponse.success(res, 200, "Recent transactions fetched successfully.", data);
         } catch (error) {
@@ -94,7 +94,7 @@ class ReportController {
      */
     static async getHighestExpense(req, res) {
         try {
-            const { userId } = req.query;
+            const userId = req.user.id;
             const data = await ReportService.getHighestExpense(userId);
             return ApiResponse.success(res, 200, "Highest expense fetched successfully.", data);
         } catch (error) {
@@ -112,7 +112,7 @@ class ReportController {
      */
     static async getLowestExpense(req, res) {
         try {
-            const { userId } = req.query;
+            const userId = req.user.id;
             const data = await ReportService.getLowestExpense(userId);
             return ApiResponse.success(res, 200, "Lowest expense fetched successfully.", data);
         } catch (error) {
@@ -130,7 +130,8 @@ class ReportController {
      */
     static async getTopSpendingCategories(req, res) {
         try {
-            const { userId, limit } = req.query;
+            const userId = req.user.id;
+            const { limit } = req.query;
             const data = await ReportService.getTopSpendingCategories(userId, limit);
             return ApiResponse.success(res, 200, "Top spending categories fetched successfully.", data);
         } catch (error) {

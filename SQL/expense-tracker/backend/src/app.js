@@ -13,7 +13,7 @@
 
 import express from "express";
 import morgan from "morgan";
-
+import cors from 'cors'
 // ── Routes ──────────────────────────────────────────────────
 import authRoutes from "./routes/auth.routes.js";
 import userRoutes from "./routes/user.routes.js";
@@ -29,7 +29,9 @@ const app = express();
 // ── Global Middlewares ───────────────────────────────────────
 app.use(express.json());
 app.use(morgan("dev"));
-
+app.use(cors({
+    origin: '*'
+}))
 // ── Health Check ─────────────────────────────────────────────
 app.get("/", (req, res) => {
     res.status(200).json({
