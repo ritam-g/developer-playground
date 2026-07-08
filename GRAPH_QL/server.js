@@ -1,13 +1,39 @@
 import express from "express";
+import { ApolloServer } from "@apollo/server";
+import { expressMiddleware } from "@as-integrations/express5";
+import bodyParser from "body-parser";
+import cors from "cors";
 
-const app = express();
 
-const PORT = 4000;
+async function startServer() {
+  const app = express()
 
-app.get("/", (req, res) => {
-  res.send("Server is running 🚀");
-});
+  const server = new ApolloServer({
+    typeDefs: `
+    type Query{
+      sayHello:String
+    }
+    `,
+    resolvers: {
+      Query: {
+        sayHello: () => "Hello from GraphQL"
+      }
+    }
+  })
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+  app.use(bodyParser.json())
+  app.use(cors())
+
+  await server.start()
+
+  app.use('/graphql', expressMiddleware(server))
+
+  app.listen(4000, () => {
+    console.log(`'server is running'port number 4000`)
+  })
+
+
+
+}
+
+await startServer()
