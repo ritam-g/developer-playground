@@ -1,6 +1,6 @@
 # 🌐 Networking Revision Notes (DevOps Prep)
 
-> Ye file teri daily revision ke liye hai. Jo jo topic tune abhi tak cover kiya hai, sab yahan flow me hai — **Network → Host → MAC vs IP → Switch → CIDR → Subnet Mask → OSI Model → TCP/IP Model → Packet Journey**.
+> Ye file teri daily revision ke liye hai. Jo jo topic tune abhi tak cover kiya hai, sab yahan flow me hai — **Network → Host → MAC vs IP → Switch → CIDR → Subnet Mask → OSI Model → TCP/IP Model → Packet Journey → ARP**.
 
 ---
 
@@ -234,6 +234,71 @@ sequenceDiagram
 
 ---
 
+## 10. ARP (Address Resolution Protocol)
+
+> **ARP = Ek protocol jo IP Address ko MAC Address me "resolve" karta hai.**
+
+- Jab bhi koi Host kisi ko (same LAN me ya Router ko) data bhejna chahta hai, use **Layer 2 pe MAC address chahiye hota hai** — sirf IP address se kaam nahi chalta.
+- Par Host ko sirf destination ka **IP pata hota hai, MAC nahi**. Isi problem ko ARP solve karta hai.
+
+> ⚡ **Yaad rakhne wali line:** *"DURING SENDING MESSAGE, IT WILL HAVE MAC"* — matlab bhejne se pehle MAC address pata hona zaroori hai, aur wahi kaam ARP karta hai.
+
+### ARP kaam kaise karta hai (2 steps):
+
+1. **ARP Request (Broadcast):** Host A poore LAN me chilla ke poochta hai — *"Jiska IP ye hai, apna MAC address bhejo!"* (ye request sabko jaati hai — Broadcast).
+2. **ARP Reply (Unicast):** Jis Host ka wo IP hai, sirf wahi reply karta hai apne MAC address ke sath — seedha Host A ko (Unicast).
+3. Host A ab ye mapping (IP ↔ MAC) apne **ARP Cache/Table** me save kar leta hai, taaki baar baar poochna na pade.
+
+### Diagram (Tere notes wala example — Network: 192.143.2.0)
+
+```mermaid
+graph TD
+    subgraph "LAN Network: 192.143.2.0/24"
+        A["Host A<br/>192.143.2.1"]
+        B["Host B<br/>192.143.2.2"]
+        C["Host C<br/>192.143.2.3"]
+    end
+    R(("Router R"))
+    A --- R
+    B --- R
+    C --- R
+```
+
+### ARP Request/Reply Flow (Host A ko Router R ka MAC chahiye):
+
+```mermaid
+sequenceDiagram
+    participant A as Host A (192.143.2.1)
+    participant B as Host B (192.143.2.2)
+    participant C as Host C (192.143.2.3)
+    participant R as Router R
+
+    Note over A: A ko Router ko data bhejna hai<br/>Sirf IP pata hai, MAC nahi
+    A->>B: ARP Request (Broadcast):<br/>"Kiska IP 192.143.2.X (Router) hai? MAC batao"
+    A->>C: ARP Request (Broadcast)
+    A->>R: ARP Request (Broadcast)
+    Note over B,C: B aur C ignore karte hain<br/>(unka IP match nahi karta)
+    R->>A: ARP Reply (Unicast):<br/>"Mera IP ye hai, mera MAC: XX:XX:XX"
+    Note over A: A ab IP↔MAC mapping<br/>apne ARP Cache me save karta hai
+    A->>R: Ab actual data bhejta hai<br/>(Destination MAC ke sath)
+```
+
+### Quick Points:
+
+| Point               | Detail                                                                           |
+| ------------------- | -------------------------------------------------------------------------------- |
+| Full Form           | Address Resolution Protocol                                                      |
+| Kaam                | IP Address → MAC Address resolve karna                                          |
+| Request Type        | Broadcast (sabko jaati hai)                                                      |
+| Reply Type          | Unicast (sirf jiska IP match kare, wahi reply karta hai)                         |
+| Store kaha hota hai | ARP Cache / ARP Table (temporary, kuch time baad expire)                         |
+| Layer               | Technically Layer 2 aur Layer 3 ke beech kaam karta hai                          |
+| Kyun zaroori hai    | Kyunki Switch/Layer 2 delivery**sirf MAC address** se hoti hai, IP se nahi |
+
+> 💡 **Packet Journey se connection:** Section 9 me jo tune padha tha ki "Router ka MAC address use hota hai locally" — wahi MAC address Host ko **ARP se hi milta hai**. Matlab har baar jab packet agle hop pe jata hai, ARP hi decide karta hai ki us hop ka MAC kya hai.
+
+---
+
 ## 🔑 Quick Revision Table (Sabse Important — Ek Nazar Me)
 
 | Concept                  | Kya Hai                                        | Yaad Rakhne Wali Line                         |
@@ -248,6 +313,7 @@ sequenceDiagram
 | **OSI Model**      | 7 layers ka theoretical blueprint              | Application → Physical                       |
 | **TCP/IP Model**   | 4 layers ka practical/real-world model         | OSI ka simplified version                     |
 | **Packet Journey** | Data source se destination tak kaise jata hai  | IP same rehta hai, MAC har hop pe badalta hai |
+| **ARP**            | IP Address ko MAC Address me resolve karta hai | Request Broadcast, Reply Unicast              |
 
 ---
 
