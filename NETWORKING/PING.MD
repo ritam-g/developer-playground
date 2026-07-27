@@ -1,4 +1,3 @@
-
 # Ping Command Complete Guide
 
 ## What is Ping?
