@@ -1,4 +1,3 @@
-
 # Session Layer vs Transport/Network/Data Link — Clarified
 
 ## Core Point (1 line)
